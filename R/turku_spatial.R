@@ -47,9 +47,20 @@
 #' @seealso \url{http://paikkatietokeskus.lounaispaikka.fi/fi/aineistot/}, 
 #' \code{\link{download.data}}
 #' 
-#' @examples
+#' @examples 
 #' # See available options
-#' get_turku_adminboundaries() 
+#' get_turku_adminboundaries()
+#' 
+#' \dontrun{
+#' # Get the election districts as a SpatialPolygonsDataFrame
+#' get_turku_adminboundaries('elections')
+#' 
+#' # Use cache to avoid downloading the data each time
+#' get_turku_adminboundaries('elections', data.dir='cache')
+#' 
+#' # Force update the cache
+#' get_turku_adminboundaries('elections', data.dir='cache', overwrite=TRUE)
+#' } 
 #' 
 get_turku_adminboundaries <- function(map.specifier=NULL, data.dir = tempdir(), 
                                       verbose=TRUE, ...) {
@@ -76,14 +87,51 @@ get_turku_adminboundaries <- function(map.specifier=NULL, data.dir = tempdir(),
       message("Turku election district boundaries (Turun kaupungin aanestysaluerajat) (C) City of Turku 2011")
       message("Licence: 'http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf'")
     }
+    # The name of the actual spatial file, zips can include several different 
+    # files
+    sp.file <- file.path(data.dir, basename(target))
+    # Spatial in EUREF-FIN => EPSG:3067
+    p4s <- "+init=epsg:3067"
+    
   } else if (map.specifier == "major-districts") {
     target <- paste0(base.url, "/", "Turku_suuralueet.zip")
     if (verbose) {
       message("Major district in City of Turku (Turun kaupungin aanestysaluerajat) (C) City of Turku 2011")
       message("Licence: 'http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf'")
     }
+    # sp.file is the EUREF-FIN version
+    sp.file <- file.path(data.dir, "Suuralueet_epsg3067_shape.shp")
+    # Spatial in EUREF-FIN => EPSG:3067
+    p4s <- "+init=epsg:3067"
   }
-  download.success <- download_data(target, file.path(data.dir, 
-                                                      basename(target)), ...)
+  
+  # Local name for the downloaded file (zip or not)
+  filename <- file.path(data.dir, basename(target))
+  dl.success <- download_data(target, filename, ...)
+  
+  ## Read in the spatial data -----------------------------------
+  
+  # If downloading/extracting was a success, proceed to read in the spatial 
+  # data.
+  if (dl.success) {
+    
+    if (!file.exists(sp.file)) {
+      stop("Input spatial file ", sp.file, " does not exist")
+    }
+    if (verbose) {
+      message("Reading in spatial data from ", sp.file)
+    }
+    sp <- rgdal::readOGR(sp.file, layer = rgdal::ogrListLayers(sp.file), 
+                         verbose = verbose, p4s=p4s, 
+                         drop_unsupported_fields=T, dropNULLGeometries=T)
+  } else {
+    stop("Download failed")
+  }
+  
+  if (verbose) {
+    message("\nData loaded successfully!")
+  }
+  
+  return(sp)
 }
   
