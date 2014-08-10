@@ -12,7 +12,6 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of 
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-
 #' Retrieve administrative boundaries in Turku
 #'
 #' Retrieves administrative boundaries data from Lounaispaikka (GIS repository
@@ -22,15 +21,19 @@
 #' associated licenses are:
 #'
 #' \describe{
-#'  \item{\code{elections}}{Election districts in City of Turku (City of turku, \href{http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf}{Turun kaupungin lisenssi})}
+#'  \item{\code{elections}}{Election districts in City of Turku (City of turku, 
+#'    \href{http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf}{Turun kaupungin lisenssi})}
+#'  \item{\code{major-districts}}{Major district in City of Turku (City of turku, 
+#'    \href{http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf}{Turun kaupungin lisenssi})}
 #' }
 #'
-#' 
 #' @param map.specifier A string. Specify the name of the Turku administrative 
 #' data set to retrieve. 
 #' @param data.dir A string. Specify a temporary folder for storing downloaded 
 #' data (default: \code{tempdir()}.
-#' @param verbose logical. Should R report extra information on progress? 
+#' @param verbose logical. Should R report extra information on progress?
+#' (default: TRUE)
+#' @param ... other arguments  passed on to \code{download_data}
 #'
 #' @return a spatial object (from SpatialPolygonsDataFrame class)
 #' 
@@ -38,15 +41,49 @@
 #' @import sp
 #' @export
 #'
-#' @author Joona Lehtomaki, Juuso Parkkinen,and Leo Lahti \email{louhos@@googlegroups.com}
+#' @author Joona Lehtomaki, Juuso Parkkinen,and Leo Lahti 
+#' \email{louhos@@googlegroups.com}
 #' @references See citation("gisfin") 
-#' @seealso \url{http://paikkatietokeskus.lounaispaikka.fi/fi/aineistot/}
+#' @seealso \url{http://paikkatietokeskus.lounaispaikka.fi/fi/aineistot/}, 
+#' \code{\link{download.data}}
 #' 
 #' @examples
 #' # See available options
 #' get_turku_adminboundaries() 
 #' 
 get_turku_adminboundaries <- function(map.specifier=NULL, data.dir = tempdir(), 
-                                      verbose=TRUE) {
-  return("foo")
+                                      verbose=TRUE, ...) {
+  # If data not specified, return a list of available options
+  if (is.null(map.specifier)) {
+    message("Please specify 'map.specifier' for Turku administrative boundaries")
+    return(c("elections", "major-districts"))
+  }
+  
+  # Create data.dir if it does not exist
+  if (!file.exists(data.dir)) {
+    dir.create(data.dir)
+  }
+  
+  ## Download data -----------------------------------
+  
+  base.url <- "http://paikkatietokeskus.lounaispaikka.fi/cms/files/aineistoja"
+  
+  # Define data to download
+  if (map.specifier == "elections") {
+    target <- paste0(base.url, "/", 
+                     "geojson/aanestysalueet_alueina_euref_fin.geojson")
+    if (verbose) {
+      message("Turku election district boundaries (Turun kaupungin aanestysaluerajat) (C) City of Turku 2011")
+      message("Licence: 'http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf'")
+    }
+  } else if (map.specifier == "major-districts") {
+    target <- paste0(base.url, "/", "Turku_suuralueet.zip")
+    if (verbose) {
+      message("Major district in City of Turku (Turun kaupungin aanestysaluerajat) (C) City of Turku 2011")
+      message("Licence: 'http://paikkatietokeskus.lounaispaikka.fi/cms/files/Avoin_data_Turku_lisenssiehdot.pdf'")
+    }
+  }
+  download.success <- download_data(target, file.path(data.dir, 
+                                                      basename(target)), ...)
 }
+  
