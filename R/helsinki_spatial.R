@@ -27,9 +27,11 @@
 #' Helsinki District Boundary data set to retrieve.
 #' Run 'get_helsinki_aluejakokartat()' to see available options.
 #' @param data.dir A string. Specify a temporary folder for storing downloaded data.
-#' @param verbose logical. Should R report extra information on progress? 
+#' @param verbose logical. Should R report extra information on progress?
+#' @param ... other arguments  passed on to \code{download_data}
 #'
-#' @return a spatial object (from SpatialPolygonsDataFrame class)
+#' @return a spatial object (from SpatialPolygonsDataFrame class), CRS is 
+#' EUREF-FIN (EPSG:3067)
 #' 
 #' @import rgdal
 #' @import sp
@@ -41,12 +43,16 @@
 #' @examples sp.suuralue <- get_helsinki_aluejakokartat(map.specifier="suuralue"); 
 #'           spplot(sp.suuralue, zcol="Name");
 
-get_helsinki_aluejakokartat <- function(map.specifier=NULL, data.dir = tempdir(), verbose=TRUE) {
+get_helsinki_adminboundaries <- function(map.specifier=NULL, 
+                                         data.dir = tempdir(), verbose=TRUE,
+                                         ...) {
   
   # If data not specified, return a list of available options
   if (is.null(map.specifier)) {
     message("Please specify 'map.specifier'!")
-    return(c("kunta", "pienalue", "pienalue_piste", "suuralue", "suuralue_piste", "tilastoalue", "tilastoalue_piste", "aanestysalue"))
+    return(c("kunta", "pienalue", "pienalue_piste", "suuralue", 
+             "suuralue_piste", "tilastoalue", "tilastoalue_piste", 
+             "aanestysalue"))
   }
   
   # Create data.dir if it does not exist
@@ -55,73 +61,67 @@ get_helsinki_aluejakokartat <- function(map.specifier=NULL, data.dir = tempdir()
   
   ## Download data -----------------------------------
   
+  base.url <- "http://ptp.hel.fi/avoindata/aineistot/"
+  
   # Define data to download
-  if (map.specifier %in% c("kunta", "pienalue", "pienalue_piste", "suuralue", "suuralue_piste", "tilastoalue", "tilastoalue_piste")) {
-    zip.file <- "PKS_Kartta_Rajat_KML2011.zip"
+  if (map.specifier %in% c("kunta", "pienalue", "pienalue_piste", "suuralue", 
+                           "suuralue_piste", "tilastoalue", 
+                           "tilastoalue_piste")) {
+    target <- paste0(base.url, "/", "PKS_Kartta_Rajat_KML2011.zip")
     if (verbose) {
       message("Helsinki region district boundaries (Paakaupunkiseudun aluejakokartat) (C) HKK 2011")
       message("Licence: 'http://ptp.hel.fi/avoindata/aineistot/Kartta_avoindata_kayttoehdot_v02_3_2011.pdf'")
     }
+    # The name of the actual spatial file, zips can include several different 
+    # files
+    sp.file <- file.path(data.dir, paste0("PKS_", map.specifier, ".kml"))
+    # Spatial in ETRS89 lat/lon coordinates => EPSG:4258
+    p4s <- "+init=epsg:4258"
   } else if (map.specifier == "aanestysalue") {
-    zip.file <- "pk_seudun_aanestysalueet.zip"
+    target <- paste0(base.url, "/", "pk_seudun_aanestysalueet.zip")
     if (verbose) {
       message("Helsinki election district boundaries (Paakaupunkiseudun aanestysalueet) (C) HKK 2011")
       message("Licence: 'http://ptp.hel.fi/avoindata/aineistot/Avoin%20lisenssi%20aanestysalueet.pdf'")
     }
+    sp.file <- file.path(data.dir, "PKS_aanestysalueet_kkj2.TAB")
+    # Spatial in KKJ2 => EPSG:2392
+    p4s <- "+init=epsg:2392"
   }
   
-  # Download data
-  remote.zip <- paste0("http://ptp.hel.fi/avoindata/aineistot/", zip.file)
-  local.zip <-  file.path(data.dir, zip.file)
-  if (!file.exists(local.zip)) {
-    if (verbose)
-      message("Dowloading ", remote.zip, "\ninto ", local.zip, "\n")
-    utils::download.file(remote.zip, destfile = local.zip, quiet=!verbose)
-  } else {
-    if (verbose)
-      message("File ", local.zip, " already found, will not download!")
-  }
+  # Local name for the downloaded file (zip or not)
+  filename <- file.path(data.dir, basename(target))
+  dl.success <- download_data(target, filename, ...)
   
-  ## Process data ----------------------------------------
+  ## Read in the spatial data -----------------------------------
   
-  # Unzip the downloaded zip file
-  utils::unzip(local.zip, exdir = data.dir)
-  
-  # Specify spatial data file to read
-  if (map.specifier != "aanestysalue") {
-    filename <- file.path(data.dir, paste0("PKS_", map.specifier, ".kml"))
-  } else {
-    filename <- file.path(data.dir, "PKS_aanestysalueet_kkj2.TAB")
-  }
-  
-  # Read spatial data
-  if (verbose)
-    message("Reading filename ", filename)
-  
-  # TODO: fix warning about Z-dimension discarded
-  if (map.specifier != "aanestysalue") {
-    # These are in ETRS89 lat/lon coordinates => EPSG:4258
-    sp <- rgdal::readOGR(filename, layer = rgdal::ogrListLayers(filename), verbose = verbose, p4s="+init=epsg:4258", drop_unsupported_fields=T, dropNULLGeometries=T)
-  } else {
-    # These are in KKJ2 coordinates => EPSG:2392
-    sp <- rgdal::readOGR(filename, layer = rgdal::ogrListLayers(filename), verbose = verbose, p4s="+init=epsg:2392", drop_unsupported_fields=T, dropNULLGeometries=T, encoding="ISO-8859-1", use_iconv=TRUE)
-    # Transform to the same coordinates as the others
-    sp <- spTransform(sp, CRS("+proj=longlat +datum=WGS84"))
-  }
-  
-#   # Check that the coordinates match!
-#   sp.suuralue = get_helsinki_aluejakokartat("suuralue", data="TEMPDIR")
-#   sp.aanestysalue = get_helsinki_aluejakokartat("aanestysalue", "TEMPDIR")
-#   df.suuralue = sp2df(sp.suuralue, "Name")
-#   df.aanestysalue = sp2df(sp.aanestysalue, "Nimi")
-#   ggplot(df.suuralue, aes(x=long, y=lat)) + geom_polygon(aes(group=Name), fill="transparent", colour="red", alpha=0.5, size=1) + geom_polygon(data=df.aanestysalue, aes(group=Nimi), fill="transparent", colour="blue", alpha=0.5, size=1)
-#   # Seems good enough!
-  
-  if (verbose)
-    message("\nData loaded successfully!")
-  return(sp)
-}
+  # If downloading/extracting was a success, proceed to read in the spatial 
+  # data.
+  if (dl.success) {
+    
+    if (!file.exists(sp.file)) {
+      stop("Input spatial file ", sp.file, " does not exist")
+    }
+    if (verbose) {
+      message("Reading in spatial data from ", sp.file)
+    }
+    sp <- rgdal::readOGR(sp.file, layer = rgdal::ogrListLayers(sp.file), 
+                         verbose = verbose, p4s=p4s, 
+                         drop_unsupported_fields=T, dropNULLGeometries=T)
 
+    # Transform the data to EUREF-FIN 
+    sp <- spTransform(sp, CRS("+init=epsg:3067"))
+  
+  } else {
+    stop("Download failed")
+  }
+  
+  if (verbose) {
+    message("\nData loaded successfully!")
+  }
+  
+  return(sp)
+
+}
 
 #' Retrieve spatial data from Helsinki Real Estate Department
 #'
