@@ -39,6 +39,7 @@ associated licenses are:
 \examples{
 # See available options
 get_turku_adminboundaries()
+
 \dontrun{
 # Get the election districts as a SpatialPolygonsDataFrame
 get_turku_adminboundaries('elections')

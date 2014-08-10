@@ -35,7 +35,8 @@
 #' (default: TRUE)
 #' @param ... other arguments  passed on to \code{download_data}
 #'
-#' @return a spatial object (from SpatialPolygonsDataFrame class)
+#' @return a spatial object (from SpatialPolygonsDataFrame class), CRS is 
+#' EUREF-FIN (EPSG:3067)
 #' 
 #' @import rgdal
 #' @import sp
