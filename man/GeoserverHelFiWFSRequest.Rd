@@ -3,35 +3,34 @@
 \docType{data}
 \name{GeoserverHelFiWFSRequest}
 \alias{GeoserverHelFiWFSRequest}
-\title{Builds a WFS request to the \code{stat.fi} geospatial API.}
+\title{Builds a WFS request to the \code{hel.fi} geospatial API.}
 \description{
-Builds a WFS request to the \code{stat.fi} geospatial API. The request is submitted with
+Builds a WFS request to the \code{hel.fi} geospatial API. The request is submitted with
 \code{\link{GeoserverHelFiWFSClient}} to retrieve the data.
-For more information about the API, see \url{http://www.stat.fi/tup/rajapintapalvelut/index_en.html}.
-For General Terms of Use, see \url{http://www.stat.fi/org/lainsaadanto/yleiset_kayttoehdot_en.html/}.
 }
 \section{Currently supported data sets}{
 
 \itemize{
-  \item Population densities in various demographic groups
-  \item Production and industrial facilities
-  \item Educational institutions
-  \item Road accidents
+  \item Regional map (seutukartta)
+  \item Register of public areas in Helsinki (yleisten alueiden rekisteri)
 }
 }
 
 \section{Methods}{
 
 \itemize{
-  \item\code{getSeutukarttaLayers()}: A request for a list of available population grid data sets (layers).
-  \item\code{getSeutukartta(layer)}: A request for population grid data \code{layer}.
-}
+  \item\code{getSeutukarttaLayers()}: A request for a list of available regional map data sets (layers).
+  \item\code{getSeutukartta(layer)}: A request for regional map data \code{layer}.
+  \item\code{getHelLayers()}: A request for a list of available register of public areas data sets (layers).
+  \item\code{getHel(layer)}: A request for register of public areas data \code{layer}.
+  \item\code{getHKRLayers()}: A request for a list of available register of public areas data sets (layers).
+  \item\code{getHKR(layer)}: A request for register of public areas data \code{layer}.#' }
 }
 \examples{
 # See the vignette.
 }
 \author{
-Jussi Jousimo \email{louhos@googlegroups.com}
+Juuso Parkkinen and Jussi Jousimo \email{louhos@googlegroups.com}
 }
 \references{
 See citation("gisfin")

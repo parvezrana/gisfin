@@ -27,6 +27,7 @@
 #'   \item Production and industrial facilities
 #'   \item Educational institutions
 #'   \item Road accidents
+#'   \item Postal code areas
 #' }
 #'
 #' @section Methods:

@@ -3,12 +3,12 @@
 \docType{data}
 \name{GeoserverHelFiWFSClient}
 \alias{GeoserverHelFiWFSClient}
-\title{Retrieves geospatial data from \code{stat.fi}.}
+\title{Retrieves geospatial data from \code{hel.fi}.}
 \value{
-In case the service at \code{stat.fi} cannot be reached, the relevant methods return \code{character(0)}.
+In case the service at \code{hel.fi} cannot be reached, the relevant methods return \code{character(0)}.
 }
 \description{
-Retrieves geospatial data from Statistics Finland (\url{http://www.stat.fi}). A request object
+Retrieves geospatial data from (\url{http://geoserver.hel.fi}). A request object
 to retrieve data is constructed from the class \code{\link{GeoserverHelFiWFSRequest}}. Layer lists are
 returned as \code{character} vectors and map data (layers) as \code{Spatial*} objects.
 }
@@ -16,7 +16,7 @@ returned as \code{character} vectors and map data (layers) as \code{Spatial*} ob
 # See the vignette.
 }
 \author{
-Jussi Jousimo \email{louhos@googlegroups.com}
+Juuso Parkkinen and Jussi Jousimo \email{louhos@googlegroups.com}
 }
 \references{
 See citation("gisfin")

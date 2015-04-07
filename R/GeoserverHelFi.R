@@ -14,32 +14,32 @@
 
 #' @include WFSClient.R
 #'
-#' @title Builds a WFS request to the \code{stat.fi} geospatial API.
+#' @title Builds a WFS request to the \code{hel.fi} geospatial API.
 #' 
-#' @description Builds a WFS request to the \code{stat.fi} geospatial API. The request is submitted with
+#' @description Builds a WFS request to the \code{hel.fi} geospatial API. The request is submitted with
 #' \code{\link{GeoserverHelFiWFSClient}} to retrieve the data.
-#' For more information about the API, see \url{http://www.stat.fi/tup/rajapintapalvelut/index_en.html}.
-#' For General Terms of Use, see \url{http://www.stat.fi/org/lainsaadanto/yleiset_kayttoehdot_en.html/}. 
 #'
 #' @section Currently supported data sets:
 #' \itemize{
-#'   \item Population densities in various demographic groups
-#'   \item Production and industrial facilities
-#'   \item Educational institutions
-#'   \item Road accidents
+#'   \item Regional map (seutukartta)
+#'   \item Spatial data from Helsinki city (hel)
+#'   \item Register of public areas in Helsinki (yleisten alueiden rekisteri; ylre)
 #' }
 #'
 #' @section Methods:
 #' \itemize{
-#'   \item\code{getSeutukarttaLayers()}: A request for a list of available population grid data sets (layers).
-#'   \item\code{getSeutukartta(layer)}: A request for population grid data \code{layer}.
-#' }
+#'   \item\code{getSeutukarttaLayers()}: A request for a list of available regional map data sets (layers).
+#'   \item\code{getSeutukartta(layer)}: A request for regional map data \code{layer}.
+#'   \item\code{getHelLayers()}: A request for a list of available register of public areas data sets (layers).
+#'   \item\code{getHel(layer)}: A request for register of public areas data \code{layer}.
+#'   \item\code{getHKRLayers()}: A request for a list of available register of public areas data sets (layers).
+#'   \item\code{getHKR(layer)}: A request for register of public areas data \code{layer}.#' }
 #' 
 #' @usage NULL
 #' @format NULL
 #' @import R6
 #' @references See citation("gisfin")
-#' @author Jussi Jousimo \email{louhos@@googlegroups.com}
+#' @author Juuso Parkkinen and Jussi Jousimo \email{louhos@@googlegroups.com}
 #' @examples
 #' # See the vignette.
 #' @seealso \code{\link{GeoserverHelFiWFSClient}} \code{\link{WFSStreamingRequest}}
@@ -72,23 +72,27 @@ GeoserverHelFiWFSRequest <- R6::R6Class(
     },
     
     getSeutukarttaLayers = function() self$getGeoserverHelFiLayers("seutukartta"),
-    getSeutukartta = function(layer) self$getGeoserverHelFiLayer("seutukartta", layer)
-
+    getSeutukartta = function(layer) self$getGeoserverHelFiLayer("seutukartta", layer),
+    getHelLayers = function() self$getGeoserverHelFiLayers("hel"),
+    getHel = function(layer) self$getGeoserverHelFiLayer("hel", layer),
+    getHKRLayers = function() self$getGeoserverHelFiLayers("hkr"),
+    getHKR = function(layer) self$getGeoserverHelFiLayer("hkr", layer)
+    
   )
 )
 
-#' @title Retrieves geospatial data from \code{stat.fi}.
+#' @title Retrieves geospatial data from \code{hel.fi}.
 #' 
-#' @description Retrieves geospatial data from Statistics Finland (\url{http://www.stat.fi}). A request object
+#' @description Retrieves geospatial data from (\url{http://geoserver.hel.fi}). A request object
 #' to retrieve data is constructed from the class \code{\link{GeoserverHelFiWFSRequest}}. Layer lists are
 #' returned as \code{character} vectors and map data (layers) as \code{Spatial*} objects.
 #' 
 #' @usage NULL
 #' @format NULL
 #' @import R6
-#' @return In case the service at \code{stat.fi} cannot be reached, the relevant methods return \code{character(0)}.
+#' @return In case the service at \code{hel.fi} cannot be reached, the relevant methods return \code{character(0)}.
 #' @references See citation("gisfin")
-#' @author Jussi Jousimo \email{louhos@@googlegroups.com}
+#' @author Juuso Parkkinen and Jussi Jousimo \email{louhos@@googlegroups.com}
 #' @examples
 #' # See the vignette.
 #' @seealso \code{\link{GeoserverHelFiWFSRequest}} \code{\link{WFSStreamingClient}}

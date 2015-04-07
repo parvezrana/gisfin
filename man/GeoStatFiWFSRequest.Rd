@@ -17,6 +17,7 @@ For General Terms of Use, see \url{http://www.stat.fi/org/lainsaadanto/yleiset_k
   \item Production and industrial facilities
   \item Educational institutions
   \item Road accidents
+  \item Postal code areas
 }
 }
 
