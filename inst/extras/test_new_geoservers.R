@@ -1,3 +1,5 @@
+# Script for testing new geoserver functionalities: GeoserverHelFi and KarttaHelFi
+
 library(gisfin)
 library(raster)
 
@@ -15,7 +17,7 @@ library(raster)
 # population <- client$getLayer(layers[11])
 
 
-## Try GeoserverHelFi Seutukartta
+## Try GeoserverHelFi Seutukartta #######
 
 # Listing available layers works
 request <- gisfin::GeoserverHelFiWFSRequest$new()$getSeutukarttaLayers()
@@ -59,3 +61,23 @@ hkr_ylre_temp2 <- client$getLayer(layers[3])
 request$getHKR(layers[4])
 client <- gisfin::GeoserverHelFiWFSClient$new(request)
 hkr_ylre_temp2 <- client$getLayer(layers[3])
+
+
+## Try KarttaHelFi Rakennukset #######
+
+# Listing available layers works
+request <- gisfin::KarttaHelFiWFSRequest$new()$getAvoindataLayers()
+client <- gisfin::KarttaHelFiWFSClient$new(request)
+layers <- client$listLayers()
+layers
+
+# This works
+request$getAvoindata("avoindata:Rakennukset")
+client <- gisfin::KarttaHelFiWFSClient$new(request)
+rakennukset_temp1 <- client$getLayer("avoindata:Rakennukset")
+
+# rakennukset_temp1@data %>%
+#   tbl_df %>%
+#   filter(!is.na(ratu)) %>%
+#   head(100) %>%
+#   View()
