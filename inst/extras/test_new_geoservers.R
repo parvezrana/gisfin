@@ -74,10 +74,48 @@ layers
 # This works
 request$getAvoindata("avoindata:Rakennukset")
 client <- gisfin::KarttaHelFiWFSClient$new(request)
-rakennukset_temp1 <- client$getLayer("avoindata:Rakennukset")
+rakennukset <- client$getLayer("avoindata:Rakennukset")
 
+request$getAvoindata("avoindata:Rakennukset_rekisterialueet")
+client <- gisfin::KarttaHelFiWFSClient$new(request)
+rakennukset_rekisterialueet <- client$getLayer("avoindata:Rakennukset_rekisterialueet")
+
+
+request$getAvoindata("avoindata:Helsinki_osoiteluettelo")
+client <- gisfin::KarttaHelFiWFSClient$new(request)
+hki_osoiteluettelo <- client$getLayer("avoindata:Helsinki_osoiteluettelo")
+
+request$getAvoindata("avoindata:PKS_osoiteluettelo")
+client <- gisfin::KarttaHelFiWFSClient$new(request)
+pks_osoiteluettelo <- client$getLayer("avoindata:PKS_osoiteluettelo")
+
+# library("dplyr")
+# library("tidyr")
+# rakennukset_rekisterialueet@data %>%
+#   tbl_df %>%
+#   summarise_each(funs(length(which(!is.na(.)))), gml_id:c_hissi) %>%
+#   gather() %>%
+#   View
 # rakennukset_temp1@data %>%
 #   tbl_df %>%
 #   filter(!is.na(ratu)) %>%
 #   head(100) %>%
 #   View()
+
+## Espoo ######
+request <- gisfin::KartatEspooFiWFSRequest$new()$getGISLayers()
+client <- gisfin::KartatEspooFiWFSClient$new(request)
+layers <- client$listLayers()
+layers
+
+request$getGIS("GIS:Rakennukset")
+client <- gisfin::KartatEspooFiWFSClient$new(request)
+gis_rakennukset <- client$getLayer("GIS:Rakennukset")
+
+
+# http://geo.stat.fi/geoserver/vaestoruutu/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=vaestoruutu:vaki2005_5km
+# http://kartat.espoo.fi/TeklaOgcWeb/WFS.ashx?REQUEST=GetCapabilities&SERVICE=WFS&VERSIO
+# http://kartat.espoo.fi/TeklaOgcWeb/WFS.ashx?request=GetFeature&typeName=akaava:Erityisalue&SERVICE=WFS&VERSIO
+
+
+

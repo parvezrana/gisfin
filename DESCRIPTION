@@ -28,6 +28,7 @@ Collate:
     'WFSClient.R'
     'GeoStatFi.R'
     'GeoserverHelFi.R'
+    'KartatEspooFi.R'
     'KarttaHelFi.R'
     'MML.R'
     'WFSRequest.R'
@@ -38,3 +39,4 @@ Collate:
     'ip.R'
     'postal_code.R'
     'visualization.R'
+RoxygenNote: 5.0.1
