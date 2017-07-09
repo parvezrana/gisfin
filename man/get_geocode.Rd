@@ -34,10 +34,9 @@ See Terms and Conditions from \url{http://code.google.com/apis/maps/documentatio
    gc2 <- get_geocode("&city=Helsinki", service="openstreetmap", raw_query=T)
 }
 }
-\author{
-Juuso Parkkinen \email{louhos@googlegroups.com}, minor updates by Aaro Salosensaari \email{aaro.salosensaari@helsinki.fi} and Leo Lahti.
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Juuso Parkkinen \email{louhos@googlegroups.com}, minor updates by Aaro Salosensaari \email{aaro.salosensaari@helsinki.fi} and Leo Lahti.
+}

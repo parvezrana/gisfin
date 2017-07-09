@@ -47,4 +47,4 @@ Collate:
     'region_plot.R'
     'ropengov_storage_path.R'
     'sp2df.R'
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

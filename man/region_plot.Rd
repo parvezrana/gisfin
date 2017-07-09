@@ -29,10 +29,9 @@ Fast wrapper for visualizing regions on a map.
 \examples{
 sp <- get_municipality_map("MML"); region_plot(sp, color = "Kieli_ni1", region = "kuntakoodi") 
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}

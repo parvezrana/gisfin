@@ -12,11 +12,10 @@ WFSRequest
 This class should be inherited and the abstract method \code{getDataSource} overloaded
 in a subclass to provide a reference.
 }
-\author{
-Jussi Jousimo \email{jvj@iki.fi}
-}
 \seealso{
 \code{\link{WFSClient}}, \code{\link{GMLFile}}
 }
+\author{
+Jussi Jousimo \email{jvj@iki.fi}
+}
 \keyword{datasets}
-

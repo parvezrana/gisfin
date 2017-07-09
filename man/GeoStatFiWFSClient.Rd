@@ -19,14 +19,13 @@ returned as \code{character} vectors and map data (layers) as \code{Spatial*} ob
 \examples{
 # See the vignette.
 }
-\author{
-Jussi Jousimo \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
 \seealso{
 \code{\link{GeoStatFiWFSRequest}} \code{\link{WFSStreamingClient}}
 }
+\author{
+Jussi Jousimo \email{louhos@googlegroups.com}
+}
 \keyword{datasets}
-

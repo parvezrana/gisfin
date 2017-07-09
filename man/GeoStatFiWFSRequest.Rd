@@ -37,11 +37,9 @@ For General Terms of Use, see \url{http://www.stat.fi/org/lainsaadanto/yleiset_k
   \item\code{getPostalCodeArea(layer)}: A request for postal code area data \code{layer}.
 }
 }
+
 \examples{
   # See the vignette.
-}
-\author{
-Jussi Jousimo \email{louhos@googlegroups.com}
 }
 \references{
 See citation("gisfin")
@@ -49,5 +47,7 @@ See citation("gisfin")
 \seealso{
 \code{\link{GeoStatFiWFSClient}} \code{\link{WFSStreamingRequest}}
 }
+\author{
+Jussi Jousimo \email{louhos@googlegroups.com}
+}
 \keyword{datasets}
-

@@ -33,10 +33,9 @@ For licensing information and other details, see http://ptp.hel.fi/avoindata/.
 sp.piiri <- get_helsinki_spatial(map.type="piirijako", map.specifier="ALUEJAKO_PERUSPIIRI");
           spplot(sp.piiri, zcol="NIMI");
 }
-\author{
-Juuso Parkkinen, Joona Lehtomaki and Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Juuso Parkkinen, Joona Lehtomaki and Leo Lahti \email{louhos@googlegroups.com}
+}

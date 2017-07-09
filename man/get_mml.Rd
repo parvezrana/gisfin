@@ -17,10 +17,13 @@ get_mml(map.id, data.id, verbose = TRUE)
 url connection
 }
 \description{
-Retrieve data from Land Survey Finland (Maanmittauslaitos, MML). The data are processed into .RData files due to their big size. See the preprocessing details in \url{https://github.com/avoindata/mml}.
+Retrieve data from Land Survey Finland (Maanmittauslaitos, MML). The data 
+are processed into .RData files due to their big size. See the preprocessing 
+details in \url{https://github.com/avoindata/mml}.
 }
 \details{
-To browse for available RData, run list_mml_datasets() or see https://github.com/avoindata/mml/tree/master/rdata.
+To browse for available RData, run list_mml_datasets() or see 
+         https://github.com/avoindata/mml/tree/master/rdata.
 }
 \examples{
 datasets <- list_mml_datasets(); 
@@ -28,10 +31,10 @@ datasets <- list_mml_datasets();
           data.id <- datasets[[map.id]][[1]]; 
           sp <- get_mml(map.id, data.id)
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Leo Lahti \email{louhos@googlegroups.com}, 
+        Joona Lehtomaki \email{joona.lehtomaki@gmail.com}
+}

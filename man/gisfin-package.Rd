@@ -2,8 +2,8 @@
 % Please edit documentation in R/gisfin-package.R
 \docType{package}
 \name{gisfin-package}
-\alias{gisfin}
 \alias{gisfin-package}
+\alias{gisfin}
 \title{Finland GIS R tools}
 \description{
 Brief summary of the gisfin package
@@ -23,12 +23,11 @@ R Tools for helsinki API
 \examples{
 library(gisfin)
 }
-\author{
-Juuso Parkkinen, Leo Lahti, Joona Lehtomaki and Jussi Jousimo \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 \url{https://github.com/rOpenGov/gisfin}
 }
+\author{
+Juuso Parkkinen, Leo Lahti, Joona Lehtomaki and Jussi Jousimo \email{louhos@googlegroups.com}
+}
 \keyword{package}
-

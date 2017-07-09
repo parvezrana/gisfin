@@ -23,10 +23,9 @@ Please see the tutorial for more instructions
 \examples{
 pnro.sp <- get_postalcode_areas()
 }
-\author{
-Juuso Parkkinen \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Juuso Parkkinen \email{louhos@googlegroups.com}
+}

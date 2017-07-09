@@ -15,4 +15,3 @@ An abstract class for building a URL reference to a WFS.
 Jussi Jousimo \email{jvj@iki.fi}
 }
 \keyword{datasets}
-
