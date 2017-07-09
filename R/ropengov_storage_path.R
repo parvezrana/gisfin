@@ -19,7 +19,7 @@ ropengov_storage_path <- function(key = NULL) {
   # Louhos data is stored in Github avoindata repo:
   # https://github.com/avoindata/
   storage_paths <- list(
-    "mml" = "https://github.com/avoindata/mml/blob/master/rdata/",
+    "mml" = "https://api.github.com/repos/avoindata/mml/git/trees/master?recursive=1",
     "louhos" = "https://github.com/avoindata/louhos/blob/master/"
   )
   
