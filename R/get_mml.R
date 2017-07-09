@@ -1,12 +1,18 @@
-#' @title Get MML (Land Survey Finland) data
-#' @description Retrieve data from Land Survey Finland (Maanmittauslaitos, MML). The data are processed into .RData files due to their big size. See the preprocessing details in \url{https://github.com/avoindata/mml}.
+#' Get MML (Land Survey Finland) data
+#' 
+#' Retrieve data from Land Survey Finland (Maanmittauslaitos, MML). The data 
+#' are processed into .RData files due to their big size. See the preprocessing 
+#' details in \url{https://github.com/avoindata/mml}.
+#' 
 #' @param map.id data ID. See details.
 #' @param data.id data ID. See details.
 #' @param verbose logical. Should R report extra information on progress? 
 #' @return url connection
-#' @details To browse for available RData, run list_mml_datasets() or see https://github.com/avoindata/mml/tree/master/rdata. 
+#' @details To browse for available RData, run list_mml_datasets() or see 
+#'          https://github.com/avoindata/mml/tree/master/rdata. 
 #' @export
-#' @author Leo Lahti \email{louhos@@googlegroups.com}
+#' @author Leo Lahti \email{louhos@@googlegroups.com}, 
+#'         Joona Lehtomaki \email{joona.lehtomaki@@gmail.com}
 #' @references See citation("gisfin") 
 #' @examples datasets <- list_mml_datasets(); 
 #'           map.id <- names(datasets)[[4]]; 
