@@ -14,19 +14,19 @@ Description: Tools for reading open geographical data in Finland.
 License: BSD_2_clause + file LICENSE
 Depends:
     R (>= 3.0.1),
+    R6,
     rgdal,
-    sp,
-    R6
+    sp
 Imports:
+    digest,
+    ggplot2,
     rjson,
     RCurl,
     spdep,
-    ggplot2,
-    XML,
-    digest
+    XML
 Suggests:
-    rgeos,
-    maptools
+    maptools,
+    rgeos
 URL: https://github.com/ropengov/gisfin
 Collate:
     'WFSClient.R'
