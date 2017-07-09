@@ -19,6 +19,7 @@ Depends:
     sp
 Imports:
     digest,
+    dplyr,
     ggplot2,
     rjson,
     RCurl,
