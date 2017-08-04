@@ -2,35 +2,50 @@
 #' @description Retrieves the list of currently available MML data sets in http://www.datavaalit.fi/storage/avoindata/mml/rdata/
 #' @param verbose logical. Should R report extra information on progress? 
 #' @return List of data sets
-#' @importFrom XML readHTMLTable
+#' 
+#' @import dplyr
+#' @import httr
+#' 
 #' @export
 #' @author Leo Lahti \email{louhos@@googlegroups.com}
 #' @references See citation("gisfin") 
 #' @examples datasets = list_mml_datasets()
 #' @keywords utilities
-list_mml_datasets <- function (verbose=TRUE) {
-
-  url <- paste(ropengov_storage_path(), "mml/rdata/", sep = "")
-
-  if (verbose)
-    message(paste("Retrieving data set listing from ", url))
-
-  readHTMLTable <- NULL
-  temp <- XML::readHTMLTable(url)
-  entries <- as.vector(temp[[1]]$Name)
-  map.ids <- gsub("/", "", entries[grep("/", as.vector(temp[[1]]$Name))])
-
-  data.ids <- list()
-  for (id in map.ids) {
-
-    url2 <- paste(url, id, sep = "")
-    temp2 <- XML::readHTMLTable(url2)
-    entries2 <- as.vector(temp2[[1]]$Name)
-    data.ids[[id]] <- gsub(".RData", "", entries2[grep(".RData$", as.vector(temp2[[1]]$Name))])
- 
+list_mml_datasets <- function(verbose=TRUE) {
+  
+  # Helper function to turn a vector of data features into a tibble
+  parse_features <- function(x) {
+    # Process each path which is in form 
+    features <- lapply(x, function(y) {
+      components <- unlist(strsplit(x))
+      return(c(components, x))
+    })    
+    return(dplyr::bind_rows(features))
   }
-  if (verbose)
+  
+  url <- ropengov_storage_path("mml")
+  
+  if (verbose) {
+    message(paste("Retrieving data set listing from ", url))
+  }
+  
+  # While trying to be URL agnostic, figure out if storage path is
+  # pointing to GitHub. Each datastore needs specific extraction logic.
+  if (grepl("github.com", filepath)) {
+    req <- httr::GET(url)
+    httr::stop_for_status(req)
+    
+    file_list <- unlist(lapply(httr::content(req)$tree, "[", "path"), 
+                        use.names = FALSE)
+    rdata_list <- gsub("rdata/", "", grep(".+\\.RData$", file_list, 
+                                          value = TRUE))
+  }
+  
+  
+  
+  if (verbose) {
     message("\nData loaded successfully!")
+  }
   return(data.ids)
 }
 
