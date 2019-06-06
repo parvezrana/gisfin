@@ -7,11 +7,10 @@
 \description{
 WFS client abstract class.
 }
-\author{
-Jussi Jousimo \email{jvj@iki.fi}
-}
 \seealso{
 \code{\link{WFSStreamingClient}}, \code{\link{WFSCachingClient}}, \code{\link{WFSRequest}}
 }
+\author{
+Jussi Jousimo \email{jvj@iki.fi}
+}
 \keyword{datasets}
-

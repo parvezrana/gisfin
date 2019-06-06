@@ -28,10 +28,9 @@ datasets <- list_mml_datasets();
           data.id <- datasets[[map.id]][[1]]; 
           sp <- get_mml(map.id, data.id)
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}

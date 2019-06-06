@@ -4,8 +4,8 @@
 \alias{region_plot}
 \title{Fast wrapper for visualizing regions on a map}
 \usage{
-region_plot(sp, color, region, palette = c("darkblue", "blue", "white", "red",
-  "darkred"), by = 20, main = "")
+region_plot(sp, color, region, palette = c("darkblue", "blue", "white",
+  "red", "darkred"), by = 20, main = "")
 }
 \arguments{
 \item{sp}{\link{SpatialPolygonsDataFrame} object}
@@ -29,10 +29,9 @@ Fast wrapper for visualizing regions on a map.
 \examples{
 sp <- get_municipality_map("MML"); region_plot(sp, color = "Kieli_ni1", region = "kuntakoodi") 
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}

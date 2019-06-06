@@ -35,18 +35,18 @@ get_helsinki_aluejakokartat <- function(map.specifier=NULL, data.dir = tempdir()
     zip.file <- "PKS_Kartta_Rajat_KML2011.zip"
     if (verbose) {
       message("Helsinki region district boundaries (Paakaupunkiseudun aluejakokartat) (C) HKK 2011")
-      message("Licence: 'http://ptp.hel.fi/avoindata/aineistot/Kartta_avoindata_kayttoehdot_v02_3_2011.pdf'")
+      message("Licence: 'http://ptp.hel.fi/avoindata/Kartta_avoindata_kayttoehdot_v02_3_2011.pdf'")
     }
   } else if (map.specifier == "aanestysalue") {
     zip.file <- "pk_seudun_aanestysalueet.zip"
     if (verbose) {
       message("Helsinki election district boundaries (Paakaupunkiseudun aanestysalueet) (C) HKK 2011")
-      message("Licence: 'http://ptp.hel.fi/avoindata/aineistot/Avoin%20lisenssi%20aanestysalueet.pdf'")
+      message("Licence: 'http://ptp.hel.fi/avoindata/Avoin%20lisenssi%20aanestysalueet.pdf'")
     }
   }
   
   # Download data
-  remote.zip <- paste0("http://ptp.hel.fi/avoindata/aineistot/", zip.file)
+  remote.zip <- paste0("http://ptp.hel.fi/avoindata/", zip.file)
   local.zip <-  file.path(data.dir, zip.file)
   if (!file.exists(local.zip)) {
     if (verbose)
@@ -144,36 +144,36 @@ get_helsinki_spatial <- function(map.type=NULL, map.specifier=NULL, data.dir = t
     zip.file <- "sk14_avoin.zip"
     if (verbose) {
       message("Helsinki Region Map (Seutukartta)")
-      message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=30' and 'http://ptp.hel.fi/avoindata/aineistot/Seutukartta_aineistokuvaus.pdf'")
-      message("License: 'http://ptp.hel.fi/avoindata/aineistot/Seudullinen_avoimen_tietoaineiston_lisenssi_1.0.pdf'")
+      message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=30' and 'http://ptp.hel.fi/avoindata/Seutukartta_aineistokuvaus.pdf'")
+      message("License: 'http://ptp.hel.fi/avoindata/Seudullinen_avoimen_tietoaineiston_lisenssi_1.0.pdf'")
     }    
   } else if (map.type=="piirijako") {
     zip.file <- "Helsingin_piirijako_2013.zip"
     if (verbose) {
       message("District Division of the City of Helsinki (Helsingin aluejaot - piirijako)")
       message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=139'")
-      message("License: 'http://ptp.hel.fi/avoindata/aineistot/Helsinki_kv_kmo_avoin_data_lisenssi_1.0.pdf'")
+      message("License: 'http://ptp.hel.fi/avoindata/Helsinki_kv_kmo_avoin_data_lisenssi_1.0.pdf'")
     }
   } else if (map.type=="seudullinen osoiteluettelo") {
     zip.file <- "Seudullinen_osoiteluettelo.zip"
     if (verbose) {
       message("Regional Address List (Seudullinen osoiteluettelo)")
-      message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=181' and 'http://ptp.hel.fi/avoindata/aineistot/Seudullisen_Avoimen_osoitetiedon_kuvaus.pdf'")
-      message("License: 'http://ptp.hel.fi/avoindata/aineistot/Seudullinen_avoimen_tietoaineiston_lisenssi_1.0.pdf'")
+      message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=181' and 'http://ptp.hel.fi/avoindata/Seudullisen_Avoimen_osoitetiedon_kuvaus.pdf'")
+      message("License: 'http://ptp.hel.fi/avoindata/Seudullinen_avoimen_tietoaineiston_lisenssi_1.0.pdf'")
     }
   } else if (map.type=="helsingin osoiteluettelo") {
     zip.file <- "Helsingin_osoiteluettelo.zip"
     if (verbose) {
       message("Register of Addresses of the City of Helsinki (Helsingin osoitekanta)")
-      message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=11' and 'http://ptp.hel.fi/avoindata/aineistot/Avoimen_osoitetiedon_kuvaus.pdf'")
-      message("License: 'http://ptp.hel.fi/avoindata/aineistot/Helsinki_kv_kmo_avoin_data_lisenssi_1.0.pdf'")
+      message("For metadata see 'http://ptp.hel.fi/paikkatietohakemisto/?id=11' and 'http://ptp.hel.fi/avoindata/Avoimen_osoitetiedon_kuvaus.pdf'")
+      message("License: 'http://ptp.hel.fi/avoindata/Helsinki_kv_kmo_avoin_data_lisenssi_1.0.pdf'")
     }
   } else if (map.type=="rakennusrekisteri") {
     zip.file <- "rakennukset_Helsinki_06_2012.zip"
     if (verbose) {
       message("Helsinki city building registry (rakennusrekisterin ote) (C) Helsinging kaupunki, 2012")
       message("For metadata see file 'Metatieto_rakennukset.xls' in the zip file")
-      message("Licence: 'http://ptp.hel.fi/avoindata/aineistot/Rakennusdata%20lisenssi_09_2012.pdf'")
+      message("Licence: 'http://ptp.hel.fi/avoindata/Rakennusdata%20lisenssi_09_2012.pdf'")
       message("Warning! The zip file si really big and may cause problems for downloading!")
     } 
   } else {
@@ -181,7 +181,7 @@ get_helsinki_spatial <- function(map.type=NULL, map.specifier=NULL, data.dir = t
   }
   
   # Download data if the zip file not found
-  remote.zip <- paste0("http://ptp.hel.fi/avoindata/aineistot/", zip.file)
+  remote.zip <- paste0("http://ptp.hel.fi/avoindata/", zip.file)
   local.zip <-  file.path(data.dir, zip.file)
   if (!file.exists(local.zip)) {
     if (verbose)

@@ -21,11 +21,10 @@ Modified from original version by Kay Cichini
 \examples{
 \dontrun{ip_location("137.224.252.10")}
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}
 \keyword{utilities}
-

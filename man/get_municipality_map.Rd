@@ -23,13 +23,12 @@ Retrieve municipality maps from
 \examples{
 sp <- get_municipality_map("MML")
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
 \seealso{
 \code{\link{get_mml}}
 }
-
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}

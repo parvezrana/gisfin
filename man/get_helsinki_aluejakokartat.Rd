@@ -28,10 +28,9 @@ The data (C) 2011 Helsingin kaupunkimittausosasto.
 sp.suuralue <- get_helsinki_aluejakokartat(map.specifier="suuralue"); 
           spplot(sp.suuralue, zcol="Name");
 }
-\author{
-Juuso Parkkinen, Joona Lehtomaki and Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Juuso Parkkinen, Joona Lehtomaki and Leo Lahti \email{louhos@googlegroups.com}
+}

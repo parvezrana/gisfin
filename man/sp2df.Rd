@@ -31,10 +31,9 @@ sp.suuralue <- get_helsinki_aluejakokartat(map.specifier="suuralue");
           ggplot(df.suuralue, aes(x=long, y=lat, fill=Name)) + 
           geom_polygon() + theme(legend.position="none")
 }
-\author{
-Juuso Parkkinen \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
-
+\author{
+Juuso Parkkinen \email{louhos@googlegroups.com}
+}

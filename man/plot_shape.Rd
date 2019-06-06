@@ -55,11 +55,10 @@ Visualization types include: oneway/sequential (color scale ranges from white to
 sp.suuralue <- get_helsinki_aluejakokartat(map.specifier="suuralue"); 
           plot_shape(sp=sp.suuralue, varname="Name", type="discrete", plot=FALSE);
 }
-\author{
-Leo Lahti and Juuso Parkkinen \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
+\author{
+Leo Lahti and Juuso Parkkinen \email{louhos@googlegroups.com}
+}
 \keyword{utilities}
-

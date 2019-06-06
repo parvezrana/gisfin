@@ -18,11 +18,10 @@ Storage path for rOpenGov files.
 \examples{
 url <- ropengov_storage_path()
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("sorvi")
 }
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}
 \keyword{utilities}
-

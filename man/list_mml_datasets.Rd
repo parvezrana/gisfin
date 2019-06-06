@@ -18,11 +18,10 @@ Retrieves the list of currently available MML data sets in http://www.datavaalit
 \examples{
 datasets = list_mml_datasets()
 }
-\author{
-Leo Lahti \email{louhos@googlegroups.com}
-}
 \references{
 See citation("gisfin")
 }
+\author{
+Leo Lahti \email{louhos@googlegroups.com}
+}
 \keyword{utilities}
-
