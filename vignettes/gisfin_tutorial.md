@@ -253,10 +253,28 @@ Retrieve municipality map for the larger Helsinki region with
 ```r
 sp.piiri <- get_helsinki_spatial(map.type="piirijako", 
                                  map.specifier="ALUEJAKO_PERUSPIIRI")
+```
+
+```
+## Error in utils::download.file(remote.zip, destfile = local.zip, quiet = !verbose): cannot open URL 'http://ptp.hel.fi/avoindata/Helsingin_piirijako_2013.zip'
+```
+
+```r
 # Check current coordinates
 sp.piiri@proj4string
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'sp.piiri' not found
+```
+
+```r
 # Transform coordinates to WGS84
 sp.piiri <- sp::spTransform(sp.piiri, CRS("+proj=longlat +datum=WGS84"))
+```
+
+```
+## Error in sp::spTransform(sp.piiri, CRS("+proj=longlat +datum=WGS84")): object 'sp.piiri' not found
 ```
 
 ----
@@ -298,42 +316,7 @@ list_mml_datasets()
 ```
 
 ```
-## $`2012`
-## character(0)
-## 
-## $`2016`
-## character(0)
-## 
-## $`Maastotietokanta-tiesto1`
-## [1] "N61_v"
-## 
-## $`Maastotietokanta-tiesto2`
-## [1] "N62_p" "N62_s" "N62_t" "N62_v"
-## 
-## $`Yleiskartta-1000`
-##  [1] "AmpumaRaja"             "HallintoAlue"          
-##  [3] "HallintoAlue_DataFrame" "HallintoalueRaja"      
-##  [5] "KaasuJohto"             "KarttanimiPiste500"    
-##  [7] "KarttanimiPiste1000"    "KorkeusAlue"           
-##  [9] "KorkeusViiva500"        "KorkeusViiva1000"      
-## [11] "LentokenttaPiste"       "LiikenneAlue"          
-## [13] "MaaAlue"                "Maasto1Reuna"          
-## [15] "Maasto2Alue"            "MetsaRaja"             
-## [17] "PeltoAlue"              "RautatieViiva"         
-## [19] "SahkoLinja"             "SuojaAlue"             
-## [21] "SuojametsaRaja"         "SuojeluAlue"           
-## [23] "TaajamaAlue"            "TaajamaPiste"          
-## [25] "TieViiva"               "VesiAlue"              
-## [27] "VesiViiva"             
-## 
-## $`Yleiskartta-4500`
-##  [1] "HallintoAlue"        "HallintoalueRaja"    "KarttanimiPiste2000"
-##  [4] "KarttanimiPiste4500" "KarttanimiPiste8000" "KorkeusAlue"        
-##  [7] "KorkeusViiva"        "Maasto1Reuna"        "RautatieViiva"      
-## [10] "TaajamaPiste2000"    "TaajamaPiste4500"    "TaajamaPiste8000"   
-## [13] "TieViiva2000"        "TieViiva4500"        "TieViiva8000"       
-## [16] "VesiAlue"            "VesiViiva2000"       "VesiViiva4500"      
-## [19] "VesiViiva8000"
+## Error in list_mml_datasets(): could not find function "list_mml_datasets"
 ```
 
 
@@ -356,16 +339,45 @@ mydata <- get_pxweb_data(url = "http://pxwebapi2.stat.fi/PXWeb/api/v1/fi/Kuntien
                          Tunnusluku = c('30'),
                          Vuosi = c('Arvo')),
              clean = TRUE)
+```
 
+```
+## Error: No internet connection to http://pxwebapi2.stat.fi/PXWeb/api/v1/fi/Kuntien_talous_ja_toiminta/Kunnat/ktt14/080_ktt14_2013_fi.px
+```
+
+```r
 # Pick municipality ID from the text field
 mydata$Kuntakoodi <- sapply(strsplit(as.character(mydata$Alue), " "), function (x) x[[1]])
-mydata$Kunta <- sapply(strsplit(as.character(mydata$Alue), " "), function (x) x[[2]])
+```
 
+```
+## Error in strsplit(as.character(mydata$Alue), " "): object 'mydata' not found
+```
+
+```r
+mydata$Kunta <- sapply(strsplit(as.character(mydata$Alue), " "), function (x) x[[2]])
+```
+
+```
+## Error in strsplit(as.character(mydata$Alue), " "): object 'mydata' not found
+```
+
+```r
 # Rename fields for clarity
 mydata$Asukasluku <- mydata$values
+```
 
+```
+## Error in eval(expr, envir, enclos): object 'mydata' not found
+```
+
+```r
 # Pick only the necessary fields for clarity
 mydata <- mydata[, c("Kunta", "Kuntakoodi", "Asukasluku")]
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'mydata' not found
 ```
 
 
@@ -382,12 +394,27 @@ sp <- get_municipality_map(data.source = "MML")
 # regions besides municipalities. These will be ignored when merged
 # with the municipality map:
 sp2 <- sp::merge(sp, mydata, all.x = TRUE, by.x = "kuntakoodi", by.y="Kuntakoodi")
+```
 
+```
+## Error in sp::merge(sp, mydata, all.x = TRUE, by.x = "kuntakoodi", by.y = "Kuntakoodi"): object 'mydata' not found
+```
+
+```r
 p <- region_plot(sp2, color = "Asukasluku", region = "kuntakoodi", by = 100000)
+```
+
+```
+## Error in message("Transforming ", class(sp), " into a data frame"): object 'sp2' not found
+```
+
+```r
 print(p)
 ```
 
-![plot of chunk gisfin-owndata1](fig/gisfin-owndata1-1.png)
+```
+## Error in print(p): object 'p' not found
+```
 
 ### Using GADM maps
 
@@ -400,21 +427,41 @@ Same with GADM maps. You can select the desired maps at the [GADM service](http:
 gadm.url <- "http://biogeo.ucdavis.edu/data/gadm2/R/FIN_adm4.RData"
 con <- url(gadm.url)
 load(con); close(con)
+```
 
+```
+## Error in load(con): cannot open the connection to 'http://biogeo.ucdavis.edu/data/gadm2/R/FIN_adm4.RData'
+```
+
+```r
 # Convert NAME field into factor (needed for plots)
 gadm$NAME_4 <- factor(gadm$NAME_4)
+```
 
+```
+## Error in factor(gadm$NAME_4): object 'gadm' not found
+```
+
+```r
 # Merge the Finnish map shape file and the population data based on
 # the 'Kunta' field (see above)
 gadm2 <- sp::merge(gadm, mydata, by.x = "NAME_4", by.y = "Kunta", all.x = TRUE)
+```
 
+```
+## Error in sp::merge(gadm, mydata, by.x = "NAME_4", by.y = "Kunta", all.x = TRUE): object 'gadm' not found
+```
+
+```r
 # Plot the shape file, colour municipalities by population
 # It turns out that not all municipality names can be matched.
 # We are happy to add solutions here if you have any.
 spplot(gadm2, zcol="Asukasluku", colorkey=TRUE, main = "Population in Finnish municipalities")
 ```
 
-![plot of chunk gisfin-owndata2](fig/gisfin-owndata2-1.png)
+```
+## Error in spplot(gadm2, zcol = "Asukasluku", colorkey = TRUE, main = "Population in Finnish municipalities"): object 'gadm2' not found
+```
 
 
 
@@ -440,32 +487,50 @@ Warning! The geocode results may vary between sources, use with care!
 
 ```r
 gc1 <- get_geocode("Mannerheimintie 100, Helsinki", service="okf")
+```
+
+```
+## Error in function (type, msg, asError = TRUE) : Could not resolve host: api.okf.fi
+```
+
+```r
 unlist(gc1[1:2])
 ```
 
 ```
-##      lat      lon 
-## 60.18856 24.91736
+## Error in unlist(gc1[1:2]): object 'gc1' not found
 ```
 
 ```r
 gc2 <- get_geocode("Mannerheimintie 100, Helsinki", service="openstreetmap")
+```
+
+```
+## Error in rjson::fromJSON(res.json): unexpected character '<'
+```
+
+```r
 unlist(gc2[1:2])
 ```
 
 ```
-##      lat      lon 
-## 60.18864 24.91750
+## Error in unlist(gc2[1:2]): object 'gc2' not found
 ```
 
 ```r
 gc3 <- get_geocode("Mannerheimintie 100, Helsinki", service="google")
+```
+
+```
+## Error in get_geocode("Mannerheimintie 100, Helsinki", service = "google"): No geocode found
+```
+
+```r
 unlist(gc3[1:2])
 ```
 
 ```
-##      lat      lon 
-## 60.18864 24.91753
+## Error in unlist(gc3[1:2]): object 'gc3' not found
 ```
 
 
@@ -474,12 +539,18 @@ Get geocode for a city (instead of street address; only implemented for OSM at t
 
 ```r
 gc4 <- get_geocode("&city=Helsinki", service="openstreetmap", raw_query=T)
+```
+
+```
+## Error in rjson::fromJSON(res.json): unexpected character '<'
+```
+
+```r
 unlist(gc4[1:2])
 ```
 
 ```
-##      lat      lon 
-## 60.16741 24.94257
+## Error in unlist(gc4[1:2]): object 'gc4' not found
 ```
 
 ----
@@ -524,14 +595,18 @@ if (length(layers) > 0) layers
 ##  [9] "vaestoruutu:vaki2013_1km"    "vaestoruutu:vaki2013_1km_kp"
 ## [11] "vaestoruutu:vaki2014_1km"    "vaestoruutu:vaki2014_1km_kp"
 ## [13] "vaestoruutu:vaki2015_1km"    "vaestoruutu:vaki2015_1km_kp"
-## [15] "vaestoruutu:vaki2005_5km"    "vaestoruutu:vaki2010_5km"   
-## [17] "vaestoruutu:vaki2011_5km"    "vaestoruutu:vaki2012_5km"   
-## [19] "vaestoruutu:vaki2013_5km"    "vaestoruutu:vaki2014_5km"   
-## [21] "vaestoruutu:vaki2015_5km"   
+## [15] "vaestoruutu:vaki2016_1km"    "vaestoruutu:vaki2016_1km_kp"
+## [17] "vaestoruutu:vaki2017_1km"    "vaestoruutu:vaki2017_1km_kp"
+## [19] "vaestoruutu:vaki2018_1km"    "vaestoruutu:vaki2018_1km_kp"
+## [21] "vaestoruutu:vaki2005_5km"    "vaestoruutu:vaki2010_5km"   
+## [23] "vaestoruutu:vaki2011_5km"    "vaestoruutu:vaki2012_5km"   
+## [25] "vaestoruutu:vaki2013_5km"    "vaestoruutu:vaki2014_5km"   
+## [27] "vaestoruutu:vaki2015_5km"    "vaestoruutu:vaki2016_5km"   
+## [29] "vaestoruutu:vaki2017_5km"    "vaestoruutu:vaki2018_5km"   
 ## attr(,"driver")
 ## [1] "WFS"
 ## attr(,"nlayers")
-## [1] 21
+## [1] 30
 ```
 
 Get population density in year 2005 on a 5 km x 5 km grid, convert to 
@@ -543,6 +618,13 @@ library(raster)
 request$getPopulation(layers[11])
 client <- gisfin::GeoStatFiWFSClient$new(request)
 population <- client$getLayer(layers[11])
+```
+
+```
+## Error in private$.getLayer(dataSource = private$request$getDataSource(), : Fatal error.
+```
+
+```r
 if (length(population) > 0) {
   x <- sp::SpatialPixelsDataFrame(coordinates(population), population@data, proj4string=population@proj4string)
   population <- raster::stack(x)
@@ -550,7 +632,9 @@ if (length(population) > 0) {
 }
 ```
 
-![plot of chunk population-density-plot](fig/population-density-plot-1.png)
+```
+## Error in eval(expr, envir, enclos): object 'population' not found
+```
 
 ## <a name="pnro"></a>Finnish postal code areas
 
@@ -616,36 +700,51 @@ sessionInfo()
 ```
 
 ```
-## R version 3.3.1 (2016-06-21)
+## R version 3.5.1 (2018-07-02)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 16.04.1 LTS
+## Running under: Ubuntu 18.04.2 LTS
+## 
+## Matrix products: default
+## BLAS: /home/lei/bin/R-3.5.1/lib/libRblas.so
+## LAPACK: /home/lei/bin/R-3.5.1/lib/libRlapack.so
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
-##  [3] LC_TIME=de_BE.UTF-8        LC_COLLATE=en_US.UTF-8    
-##  [5] LC_MONETARY=de_BE.UTF-8    LC_MESSAGES=en_US.UTF-8   
-##  [7] LC_PAPER=de_BE.UTF-8       LC_NAME=C                 
+##  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+##  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+##  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-## [11] LC_MEASUREMENT=de_BE.UTF-8 LC_IDENTIFICATION=C       
+## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## other attached packages:
-##  [1] raster_2.5-8    pxweb_0.6.3     ggplot2_2.1.0   maptools_0.8-39
-##  [5] rgeos_0.3-21    gisfin_0.9.27   R6_2.2.0        rgdal_1.1-10   
-##  [9] sp_1.2-3        knitr_1.14     
+## [1] raster_2.9-5  pxweb_0.9.13  ggplot2_3.1.1 gisfin_0.9.28 R6_2.4.0     
+## [6] rgdal_1.4-3   sp_1.3-1      knitr_1.23   
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] Rcpp_0.12.7      spdep_0.6-8      formatR_1.4      plyr_1.8.4      
-##  [5] highr_0.6        bitops_1.0-6     LearnBayes_2.15  tools_3.3.1     
-##  [9] boot_1.3-18      digest_0.6.10    jsonlite_1.1     evaluate_0.10   
-## [13] nlme_3.1-128     gtable_0.2.0     lattice_0.20-34  Matrix_1.2-7.1  
-## [17] curl_2.1         coda_0.18-1      httr_1.2.1       stringr_1.1.0   
-## [21] gtools_3.5.0     grid_3.3.1       data.table_1.9.6 XML_3.98-1.4    
-## [25] foreign_0.8-67   RJSONIO_1.3-0    gdata_2.17.0     deldir_0.1-12   
-## [29] magrittr_1.5     scales_0.4.0     MASS_7.3-45      splines_3.3.1   
-## [33] gmodels_2.16.2   colorspace_1.2-7 labeling_0.3     stringi_1.1.2   
-## [37] RCurl_1.95-4.8   munsell_0.4.3    chron_2.3-47     rjson_0.2.15
+##  [1] Rcpp_1.0.1         lattice_0.20-38    deldir_0.1-16     
+##  [4] class_7.3-15       gtools_3.8.1       assertthat_0.2.1  
+##  [7] zeallot_0.1.0      digest_0.6.19      plyr_1.8.4        
+## [10] backports_1.1.4    evaluate_0.13      coda_0.19-2       
+## [13] e1071_1.7-1        httr_1.4.0         highr_0.8         
+## [16] pillar_1.4.0       rlang_0.3.4.9003   lazyeval_0.2.2    
+## [19] spdep_1.1-2        gdata_2.18.0       gmodels_2.18.1    
+## [22] Matrix_1.2-17      labeling_0.3       splines_3.5.1     
+## [25] stringr_1.4.0      foreign_0.8-71     RCurl_1.95-4.12   
+## [28] munsell_0.5.0      compiler_3.5.1     xfun_0.7          
+## [31] pkgconfig_2.0.2    rgeos_0.4-3        tidyselect_0.2.5  
+## [34] tibble_2.1.1       expm_0.999-4       codetools_0.2-16  
+## [37] XML_3.98-1.19      crayon_1.3.4       dplyr_0.8.1       
+## [40] withr_2.1.2        sf_0.7-4           MASS_7.3-51.4     
+## [43] bitops_1.0-6       grid_3.5.1         nlme_3.1-140      
+## [46] spData_0.3.0       jsonlite_1.6       gtable_0.3.0      
+## [49] DBI_1.0.0          magrittr_1.5       units_0.6-3       
+## [52] scales_1.0.0       KernSmooth_2.23-15 stringi_1.4.3     
+## [55] LearnBayes_2.15.1  vctrs_0.1.0.9003   boot_1.3-22       
+## [58] rjson_0.2.20       tools_3.5.1        RJSONIO_1.3-1.1   
+## [61] glue_1.3.1         purrr_0.3.2        colorspace_1.4-1  
+## [64] maptools_0.9-5     classInt_0.3-3
 ```
 
