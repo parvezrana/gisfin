@@ -6,6 +6,7 @@
 #' @return url connection
 #' @details To browse for available RData, run list_mml_datasets() or see https://github.com/avoindata/mml/tree/master/rdata. 
 #' @export
+#' @importFrom utils read.csv
 #' @author Leo Lahti \email{louhos@@googlegroups.com}
 #' @references See citation("gisfin") 
 #' @examples datasets <- list_mml_datasets(); 

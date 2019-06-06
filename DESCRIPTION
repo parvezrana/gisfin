@@ -1,8 +1,8 @@
 Package: gisfin
 Type: Package
 Title: Finland GIS R Tools
-Version: 0.9.27
-Date: 2016-10-27
+Version: 0.9.28
+Date: 2019-06-06
 Authors@R: c(
     person("Jousimo", "Jussi", email = "louhos@googlegroups.com", role = c("aut", "cre")),
     person("Lehtomaki", "Joona", role = c("aut")),
@@ -18,6 +18,7 @@ Depends:
     sp,
     R6
 Imports:
+    grDevices,
     rjson,
     RCurl,
     spdep,

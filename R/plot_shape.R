@@ -22,6 +22,8 @@
 #' @return A Trellis Plot Object
 #' @details Visualization types include: oneway/sequential (color scale ranges from white to dark red, or custom color given with the palette argument); twoway/bipolar/diverging (color scale ranges from dark blue through white to dark red; or custom colors); discrete/qualitative (discrete color scale; the colors are used to visually separate regions); and "custom" (specify colors with the col.regions argument)
 #' @export
+#' @importFrom grDevices rainbow
+#' @importFrom grDevices colorRampPalette
 #' @references See citation("gisfin") 
 #' @author Leo Lahti and Juuso Parkkinen \email{louhos@@googlegroups.com}
 #' @examples sp.suuralue <- get_helsinki_aluejakokartat(map.specifier="suuralue"); 

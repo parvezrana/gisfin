@@ -11,6 +11,7 @@
 #' @return a spatial object (from SpatialPolygonsDataFrame class)
 #' @import rgdal
 #' @import sp
+#' @importFrom utils read.csv
 #' @export
 #' @author Juuso Parkkinen, Joona Lehtomaki and Leo Lahti \email{louhos@@googlegroups.com}
 #' @references See citation("gisfin") 
